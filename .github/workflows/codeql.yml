@@ -47,6 +47,17 @@ jobs:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
 
+    - if: matrix.language == 'java-kotlin'
+      name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - if: matrix.language == 'java-kotlin'
+      name: Set up Gradle
+      uses: gradle/gradle-build-action@v4
+
     - if: matrix.build-mode == 'manual'
       name: Build `${{ matrix.build-path }}` (${{ matrix.language }})
       shell: bash
