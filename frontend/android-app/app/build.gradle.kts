@@ -40,11 +40,11 @@ android {
             buildConfigField("String", "API_BASE_URL", "\"https://dev-api.example.com/\"")
         }
     }
-    lintOptions {
-        abortOnError = false
+    buildFeatures {
+        viewBinding = true
     }
-    viewBinding {
-        enabled = true
+    lint {
+        abortOnError = false
     }
     kotlinOptions {
         jvmTarget = "22"
