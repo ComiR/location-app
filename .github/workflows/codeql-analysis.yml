@@ -1,0 +1,43 @@
+name: "CodeQL"
+
+permissions:
+  security-events: write
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java', 'swift' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Build Java project
+      if: matrix.language == 'java'
+      run: ./gradlew build
+
+    - name: Build Swift project
+      if: matrix.language == 'swift'
+      run: xcodebuild -scheme LocationApp build
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
