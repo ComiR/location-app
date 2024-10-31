@@ -27,12 +27,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: java-kotlin
-          build-mode: manual
-        - language: javascript-typescript
-          build-mode: none
-        - language: swift
-          build-mode: manual
+        - build-mode: none
+          language: javascript-typescript
+        - build-mode: manual
+          language: java-kotlin
+          build-path: 'frontend/android-app'
+          build-command: './gradlew build'
+        - build-mode: manual
+          language: swift
+          build-path: 'frontend/ios-app'
+          build-command: 'xcodebuild -scheme LocationApp build'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -44,15 +48,11 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
 
     - if: matrix.build-mode == 'manual'
+      name: Build `${{ matrix.build-path }}` (${{ matrix.language }})
       shell: bash
       run: |
-        if [ "${{ matrix.language }}" == "java-kotlin" ]; then
-          cd frontend/android-app
-          ./gradlew build
-        elif [ "${{ matrix.language }}" == "swift" ]; then
-          cd frontend/ios-app
-          xcodebuild -scheme LocationApp build
-        fi
+        cd "${{ matrix.build-path }}"
+        ${{ matrix.build-command }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
