@@ -15,6 +15,7 @@ dependencies {
 }
 
 android {
+    namespace = "com.example.locationapp"
     compileSdk = 30
     defaultConfig {
         applicationId = "com.example.locationapp"
