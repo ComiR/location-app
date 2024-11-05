@@ -49,7 +49,6 @@ android {
         abortOnError = false
     }
     kotlinOptions {
-        jvmTarget = "22"
-        freeCompilerArgs += listOf("-Xjvm-default=compatibility")
+        jvmTarget = "21"
     }
 }
