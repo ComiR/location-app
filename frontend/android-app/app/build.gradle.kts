@@ -14,6 +14,10 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 android {
     namespace = "com.example.locationapp"
     compileSdk = 35
@@ -47,8 +51,5 @@ android {
     }
     lint {
         abortOnError = false
-    }
-    kotlinOptions {
-        jvmTarget = "21"
     }
 }
