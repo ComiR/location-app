@@ -14,13 +14,17 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
 
+kotlin {
+    jvmToolchain(21)
+}
+
 android {
     namespace = "com.example.locationapp"
-    compileSdk = 30
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.example.locationapp"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "API_BASE_URL", "\"https://api.example.com/\"")
@@ -47,9 +51,5 @@ android {
     }
     lint {
         abortOnError = false
-    }
-    kotlinOptions {
-        jvmTarget = "22"
-        freeCompilerArgs += listOf("-Xjvm-default=compatibility")
     }
 }
